@@ -1,8 +1,7 @@
 package com.handonn.finapp.accounts.model;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.handonn.finapp.accounts.entity.AccountEntity;
-import com.handonn.finapp.accounts.validation.EnumValidator;
+import com.handonn.finapp.common.validation.EnumValidator;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,9 +1,7 @@
 package com.handonn.finapp.accounts.service;
 
 import com.handonn.finapp.accounts.model.CustomerDto;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface IAccountService {
 
     void create(CustomerDto customerDto);
