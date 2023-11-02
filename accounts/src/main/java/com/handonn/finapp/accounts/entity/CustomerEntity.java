@@ -14,7 +14,7 @@ public class CustomerEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "native", strategy = GenerationType.AUTO)
-    private Long customerId;
+    private Long id;
 
     private String name;
 

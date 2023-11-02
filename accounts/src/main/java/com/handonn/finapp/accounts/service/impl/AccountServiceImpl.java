@@ -35,7 +35,7 @@ public class AccountServiceImpl implements IAccountService {
         }
 
         customer = customerRepository.save(customer);
-        AccountEntity account = this.createAccount(customer.getCustomerId());
+        AccountEntity account = this.createAccount(customer.getId());
         accountRepository.save(account);
     }
 
@@ -44,7 +44,7 @@ public class AccountServiceImpl implements IAccountService {
         var customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new BusinessException(EBusinessErrorCode.CUSTOMER_NOT_FOUND)
         );
-        var account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+        var account = accountRepository.findByCustomerId(customer.getId()).orElseThrow(
                 () -> new BusinessException(EBusinessErrorCode.ACCOUNT_NOT_FOUND)
         );
 
@@ -57,10 +57,10 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void update(Long customerId, CustomerDto customerDto) {
-        var customer = customerRepository.findByCustomerId(customerId).orElseThrow(
+        var customer = customerRepository.findById(customerId).orElseThrow(
                 () -> new BusinessException(EBusinessErrorCode.CUSTOMER_NOT_FOUND)
         );
-        var account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+        var account = accountRepository.findByCustomerId(customer.getId()).orElseThrow(
                 () -> new BusinessException(EBusinessErrorCode.ACCOUNT_NOT_FOUND)
         );
 
@@ -77,8 +77,8 @@ public class AccountServiceImpl implements IAccountService {
                 () -> new BusinessException(EBusinessErrorCode.CUSTOMER_NOT_FOUND)
         );
 
-        accountRepository.deleteByCustomerId(customer.getCustomerId());
-        customerRepository.deleteById(customer.getCustomerId());
+        accountRepository.deleteByCustomerId(customer.getId());
+        customerRepository.deleteById(customer.getId());
     }
 
     private AccountEntity createAccount(Long customerId) {
