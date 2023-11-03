@@ -1,6 +1,6 @@
 package com.handonn.finapp.common.exception;
 
-import com.handonn.finapp.common.exception.code.EBusinessErrorCode;
+import com.handonn.finapp.common.exception.code.ECommonErrorCode;
 import com.handonn.finapp.common.exception.code.EInternalErrorCode;
 import com.handonn.finapp.common.exception.definition.BusinessException;
 import com.handonn.finapp.common.exception.definition.InternalException;
@@ -17,9 +17,9 @@ public class GlobalExceptionHandling {
     @ExceptionHandler({BusinessException.class})
     public ErrorResponse handleBusinessError(BusinessException e, WebRequest webRequest) {
         return ErrorResponse.builder()
-                .errorCode(e.getError().getCode())
+                .errorCode(e.getCode())
                 .endPoint(webRequest.getDescription(false))
-                .description(e.getError().getDescription())
+                .description(e.getDescription())
                 .errorTime(LocalDateTime.now())
                 .build();
     }
@@ -29,7 +29,7 @@ public class GlobalExceptionHandling {
         return ErrorResponse.builder()
                 .errorCode(e.getError().getCode())
                 .endPoint(webRequest.getDescription(false))
-                .description(e.getError().getDescription())
+                .description("[" + e.getServiceName() + "] " + e.getError().getDescription())
                 .errorTime(LocalDateTime.now())
                 .build();
     }
@@ -37,7 +37,7 @@ public class GlobalExceptionHandling {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ErrorResponse handleValidationExceptions(MethodArgumentNotValidException e, WebRequest webRequest) {
         StringBuilder sbDescription = new StringBuilder();
-        sbDescription.append(EBusinessErrorCode.INPUT_ARGUMENT_INVALID.getDescription());
+        sbDescription.append(ECommonErrorCode.INPUT_ARGUMENT_INVALID.getDescription());
         sbDescription.append(": ");
         e.getAllErrors().forEach(error -> {
             sbDescription.append(error.getDefaultMessage());
@@ -45,7 +45,7 @@ public class GlobalExceptionHandling {
         });
 
         return ErrorResponse.builder()
-                .errorCode(EBusinessErrorCode.INPUT_ARGUMENT_INVALID.getCode())
+                .errorCode(ECommonErrorCode.INPUT_ARGUMENT_INVALID.getCode())
                 .endPoint(webRequest.getDescription(false))
                 .description(sbDescription.toString())
                 .errorTime(LocalDateTime.now())
