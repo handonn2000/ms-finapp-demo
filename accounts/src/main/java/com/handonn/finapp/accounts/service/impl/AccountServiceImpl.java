@@ -3,14 +3,14 @@ package com.handonn.finapp.accounts.service.impl;
 import com.handonn.finapp.accounts.entity.AccountEntity;
 import com.handonn.finapp.accounts.entity.CustomerEntity;
 
+import com.handonn.finapp.accounts.exception.AccountException;
+import com.handonn.finapp.accounts.exception.EAccountErrorCode;
 import com.handonn.finapp.accounts.model.AccountDto;
 import com.handonn.finapp.accounts.model.CustomerDto;
 import com.handonn.finapp.accounts.model.EAccountType;
 import com.handonn.finapp.accounts.repository.AccountRepository;
 import com.handonn.finapp.accounts.repository.CustomerRepository;
 import com.handonn.finapp.accounts.service.IAccountService;
-import com.handonn.finapp.common.exception.code.EBusinessErrorCode;
-import com.handonn.finapp.common.exception.definition.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class AccountServiceImpl implements IAccountService {
                 customerRepository.existsByMobileNumber(customer.getMobileNumber())
                         && customerRepository.existsByEmail(customer.getEmail());
         if (isDuplicate) {
-            throw new BusinessException(EBusinessErrorCode.CUSTOMER_DUPLICATION);
+            throw new AccountException.BusinessError(EAccountErrorCode.CUSTOMER_DUPLICATION);
         }
 
         customer = customerRepository.save(customer);
@@ -42,10 +42,10 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public CustomerDto getByMobileNumber(String mobileNumber) {
         var customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
-                () -> new BusinessException(EBusinessErrorCode.CUSTOMER_NOT_FOUND)
+                () -> new AccountException.BusinessError(EAccountErrorCode.CUSTOMER_NOT_FOUND)
         );
         var account = accountRepository.findByCustomerId(customer.getId()).orElseThrow(
-                () -> new BusinessException(EBusinessErrorCode.ACCOUNT_NOT_FOUND)
+                () -> new AccountException.BusinessError(EAccountErrorCode.ACCOUNT_NOT_FOUND)
         );
 
         CustomerDto customerResponse = CustomerDto.from(customer);
@@ -58,10 +58,10 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void update(Long customerId, CustomerDto customerDto) {
         var customer = customerRepository.findById(customerId).orElseThrow(
-                () -> new BusinessException(EBusinessErrorCode.CUSTOMER_NOT_FOUND)
+                () -> new AccountException.BusinessError(EAccountErrorCode.CUSTOMER_NOT_FOUND)
         );
         var account = accountRepository.findByCustomerId(customer.getId()).orElseThrow(
-                () -> new BusinessException(EBusinessErrorCode.ACCOUNT_NOT_FOUND)
+                () -> new AccountException.BusinessError(EAccountErrorCode.ACCOUNT_NOT_FOUND)
         );
 
         CustomerDto.map(customer, customerDto);
@@ -74,7 +74,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void deleteByMobileNumber(String mobileNumber) {
         var customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
-                () -> new BusinessException(EBusinessErrorCode.CUSTOMER_NOT_FOUND)
+                () -> new AccountException.BusinessError(EAccountErrorCode.CUSTOMER_NOT_FOUND)
         );
 
         accountRepository.deleteByCustomerId(customer.getId());

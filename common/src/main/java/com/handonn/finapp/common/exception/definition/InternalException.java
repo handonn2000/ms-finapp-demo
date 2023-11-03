@@ -7,5 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class InternalException extends RuntimeException {
+
     private EInternalErrorCode error;
+    private String serviceName;
 }
