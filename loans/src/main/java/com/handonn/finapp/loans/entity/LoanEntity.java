@@ -1,11 +1,7 @@
 package com.handonn.finapp.loans.entity;
 
-
 import com.handonn.finapp.common.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,6 +17,7 @@ import java.math.BigDecimal;
 public class LoanEntity extends BaseEntity {
 
     @Id
+    @GeneratedValue(generator = "native", strategy = GenerationType.AUTO)
     private Long id;
 
     @NotEmpty

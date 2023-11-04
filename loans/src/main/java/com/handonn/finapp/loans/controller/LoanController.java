@@ -2,15 +2,14 @@ package com.handonn.finapp.loans.controller;
 
 import com.handonn.finapp.common.model.BaseResponse;
 import com.handonn.finapp.loans.model.LoanDto;
+import com.handonn.finapp.loans.model.LoanUpdatedDto;
 import com.handonn.finapp.loans.service.ILoanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,13 +33,46 @@ public class LoanController {
                 .build();
     }
 
-    @GetMapping
-    public BaseResponse<?> create(@RequestBody LoanDto loan) {
+
+    @GetMapping("/{loanNumber}")
+    public BaseResponse<LoanDto> getByLoanNumber(@PathVariable String loanNumber) {
+        LoanDto loan = loanService.getByLoanNumber(loanNumber);
+
+        return BaseResponse.<LoanDto>builder()
+                .statusCode(HttpStatus.OK)
+                .message("success")
+                .data(loan)
+                .build();
+    }
+
+    @PostMapping
+    public BaseResponse<?> create(@RequestBody @Valid LoanDto loan) {
         loanService.create(loan);
 
         return BaseResponse.<List<LoanDto>>builder()
-                .statusCode(HttpStatus.OK)
+                .statusCode(HttpStatus.CREATED)
                 .message("created")
+                .build();
+    }
+
+    @PutMapping("/{loanNumber}")
+    public BaseResponse<?> update(@PathVariable String loanNumber,
+                                  @RequestBody @Valid LoanUpdatedDto loanUpdatedDto) {
+        loanService.update(loanNumber, loanUpdatedDto);
+
+        return BaseResponse.<List<LoanDto>>builder()
+                .statusCode(HttpStatus.ACCEPTED)
+                .message("updated")
+                .build();
+    }
+
+    @DeleteMapping("/{loanNumber}")
+    public BaseResponse<?> delete(@PathVariable String loanNumber) {
+        loanService.delete(loanNumber);
+
+        return BaseResponse.<List<LoanDto>>builder()
+                .statusCode(HttpStatus.ACCEPTED)
+                .message("deleted")
                 .build();
     }
 }

@@ -1,7 +1,5 @@
 package com.handonn.finapp.loans.model;
 
-import com.handonn.finapp.common.validation.EnumValidator;
-import com.handonn.finapp.loans.entity.ELoanType;
 import com.handonn.finapp.loans.entity.LoanEntity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
@@ -12,16 +10,10 @@ import java.math.BigDecimal;
 
 @Getter
 @Builder
-public class LoanDto {
-
-    @Pattern(regexp = "^FIN_\\d{10}$", message = "Invalid loan number")
-    private String loanNumber;
+public class LoanUpdatedDto {
 
     @Pattern(regexp = "(^$|[0-9]{10})", message = "invalid mobile number")
     private String mobileNumber;
-
-    @EnumValidator(enumClass = ELoanType.class)
-    private String loanType;
 
     @Min(value = 1000, message = "TotalLoan must be equal or greater than 1000")
     private BigDecimal totalLoan;
@@ -32,21 +24,17 @@ public class LoanDto {
     @Min(value = 1000, message = "OutstandingAmount must be equal or greater than 1000")
     private BigDecimal outstandingAmount;
 
-    public static LoanDto from(LoanEntity entity) {
-        return LoanDto.builder()
+    public static LoanUpdatedDto from(LoanEntity entity) {
+        return LoanUpdatedDto.builder()
                 .mobileNumber(entity.getMobileNumber())
-                .loanNumber(entity.getLoanNumber())
-                .loanType(entity.getLoanType().name())
                 .totalLoan(entity.getTotalLoan())
                 .amountPaid(entity.getAmountPaid())
                 .outstandingAmount(entity.getOutstandingAmount())
                 .build();
     }
 
-    public static void map(LoanEntity entity, LoanDto dto) {
+    public static void map(LoanEntity entity, LoanUpdatedDto dto) {
         entity.setMobileNumber(dto.getMobileNumber());
-        entity.setLoanNumber(dto.getLoanNumber());
-        entity.setLoanType(ELoanType.valueOf(dto.getLoanType()));
         entity.setTotalLoan(dto.getTotalLoan());
         entity.setAmountPaid(dto.getAmountPaid());
         entity.setOutstandingAmount(dto.getOutstandingAmount());

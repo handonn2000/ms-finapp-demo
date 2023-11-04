@@ -4,6 +4,7 @@ import com.handonn.finapp.common.exception.code.ECommonErrorCode;
 import com.handonn.finapp.common.exception.code.EInternalErrorCode;
 import com.handonn.finapp.common.exception.definition.BusinessException;
 import com.handonn.finapp.common.exception.definition.InternalException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,10 +13,13 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandling {
 
     @ExceptionHandler({BusinessException.class})
     public ErrorResponse handleBusinessError(BusinessException e, WebRequest webRequest) {
+        log.error("[BUSINESS_ERROR]: {}", e.getMessage());
+
         return ErrorResponse.builder()
                 .errorCode(e.getCode())
                 .endPoint(webRequest.getDescription(false))
@@ -26,6 +30,8 @@ public class GlobalExceptionHandling {
 
     @ExceptionHandler({InternalException.class})
     public ErrorResponse handleInternalExceptions(InternalException e, WebRequest webRequest) {
+        log.error("[INTERNAL_ERROR]: {}", e.getMessage());
+
         return ErrorResponse.builder()
                 .errorCode(e.getError().getCode())
                 .endPoint(webRequest.getDescription(false))
@@ -44,6 +50,7 @@ public class GlobalExceptionHandling {
             sbDescription.append(", ");
         });
 
+        log.error("[ARGUMENT_ERROR]: {}", e.getMessage());
         return ErrorResponse.builder()
                 .errorCode(ECommonErrorCode.INPUT_ARGUMENT_INVALID.getCode())
                 .endPoint(webRequest.getDescription(false))
@@ -54,6 +61,8 @@ public class GlobalExceptionHandling {
 
     @ExceptionHandler({Exception.class})
     public ErrorResponse handleOtherExceptions(Exception e, WebRequest webRequest) {
+        log.error("[SYSTEM_ERROR]: {}", e.getMessage());
+
         return ErrorResponse.builder()
                 .errorCode(EInternalErrorCode.OTHER_EXCEPTION.getCode())
                 .endPoint(webRequest.getDescription(false))
