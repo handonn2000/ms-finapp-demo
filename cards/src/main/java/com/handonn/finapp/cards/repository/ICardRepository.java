@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICardRepository extends JpaRepository<CardEntity, Long> {
     boolean existsByCardNumber(String cardNumber);
+
+    CardEntity getByCardNumber(String cardNumber);
 }

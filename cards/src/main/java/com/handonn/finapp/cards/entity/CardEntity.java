@@ -1,8 +1,11 @@
 package com.handonn.finapp.cards.entity;
 
+import com.handonn.finapp.cards.model.ECardType;
 import com.handonn.finapp.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity(name = "cards")
 @Getter
@@ -23,15 +26,16 @@ public class CardEntity extends BaseEntity {
     private String cardNumber;
 
     @Column(name = "card_type")
-    private String cardType;
+    @Enumerated(EnumType.STRING)
+    private ECardType cardType;
 
     @Column(name = "total_limit")
-    private int totalLimit;
+    private BigDecimal totalLimit;
 
     @Column(name = "amount_used")
-    private int amountUsed;
+    private BigDecimal amountUsed;
 
     @Column(name = "available_amount")
-    private int availableAmount;
+    private BigDecimal availableAmount;
 
 }
