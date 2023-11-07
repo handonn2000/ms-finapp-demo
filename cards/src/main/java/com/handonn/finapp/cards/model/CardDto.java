@@ -59,4 +59,13 @@ public class CardDto {
                 .availableAmount(cardDto.getAvailableAmount())
                 .build();
     }
+
+    public static void mapToCardEntity(CardDto cardDto, CardEntity cardEntity) {
+        cardEntity.setMobileNumber(cardDto.getMobileNumber());
+        cardEntity.setCardNumber(cardDto.getCardNumber());
+        cardEntity.setCardType(ECardType.valueOf(cardDto.getCardType()));
+        cardEntity.setAmountUsed(cardDto.getAmountUsed());
+        cardEntity.setTotalLimit(cardDto.getTotalLimit());
+        cardEntity.setAvailableAmount(cardDto.getAvailableAmount());
+    }
 }

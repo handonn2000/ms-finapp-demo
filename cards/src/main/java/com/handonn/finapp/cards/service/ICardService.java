@@ -13,4 +13,9 @@ public interface ICardService {
     List<CardDto> getAllCard();
 
     CardDto getByCardNumber(String cardNumber);
+
+    boolean updateCard(Long id, CardDto cardDto);
+
+    boolean deleteCard(String mobileNumber);
+
 }

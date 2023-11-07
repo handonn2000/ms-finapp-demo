@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +52,29 @@ public class CardServiceImpl implements ICardService {
         return CardDto.from(card);
     }
 
+    @Override
+    public boolean updateCard(Long id, CardDto cardDto) {
+        CardEntity cardEntity = cardRepo.findById(id).orElseThrow(
+                () -> new CardException.BusinessError(ECardErrorCode.CARD_NOT_FOUND)
+        );
+        if (cardEntity == null) {
+            return false;
+        }
+
+        CardDto.mapToCardEntity(cardDto, cardEntity);
+        cardRepo.save(cardEntity);
+        return true;
+    }
+
+    @Override
+    public boolean deleteCard(String mobileNumber) {
+        boolean existed = cardRepo.existsByMobileNumber(mobileNumber);
+        if (!existed) {
+            throw new CardException.BusinessError(ECardErrorCode.CARD_NOT_FOUND);
+        }
+
+        cardRepo.deleteByMobileNumber(mobileNumber);
+        return true;
+    }
 
 }
