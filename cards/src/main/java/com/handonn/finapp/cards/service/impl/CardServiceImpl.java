@@ -7,11 +7,12 @@ import com.handonn.finapp.cards.model.CardDto;
 import com.handonn.finapp.cards.repository.ICardRepository;
 import com.handonn.finapp.cards.service.ICardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +32,8 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public List<CardDto> getAllCard() {
-        List<CardEntity> entityList = cardRepo.findAll();
+    public List<CardDto> getAllCard(Pageable pageable) {
+        Page<CardEntity> entityList = cardRepo.findAll(pageable);
         List<CardDto> cardDtoList = new ArrayList<>();
         entityList.forEach(record -> {
             cardDtoList.add(CardDto.from(record));
@@ -53,28 +54,23 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public boolean updateCard(Long id, CardDto cardDto) {
+    public void updateCard(Long id, CardDto cardDto) {
         CardEntity cardEntity = cardRepo.findById(id).orElseThrow(
                 () -> new CardException.BusinessError(ECardErrorCode.CARD_NOT_FOUND)
         );
-        if (cardEntity == null) {
-            return false;
-        }
 
         CardDto.mapToCardEntity(cardDto, cardEntity);
         cardRepo.save(cardEntity);
-        return true;
     }
 
     @Override
-    public boolean deleteCard(String mobileNumber) {
+    public void deleteCard(String mobileNumber) {
         boolean existed = cardRepo.existsByMobileNumber(mobileNumber);
         if (!existed) {
             throw new CardException.BusinessError(ECardErrorCode.CARD_NOT_FOUND);
         }
 
         cardRepo.deleteByMobileNumber(mobileNumber);
-        return true;
     }
 
 }

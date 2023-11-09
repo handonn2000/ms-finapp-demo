@@ -6,6 +6,7 @@ import com.handonn.finapp.common.model.BaseResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class CardController {
 
     private final ICardService cardService;
 
-    @PostMapping("/new-card")
+    @PostMapping
     public BaseResponse<?> create(@Valid @RequestBody CardDto cardDto) {
         cardService.create(cardDto);
         return BaseResponse.builder()
@@ -29,9 +30,9 @@ public class CardController {
                 .build();
     }
 
-    @GetMapping("/card-list")
-    public BaseResponse<List<CardDto>> getCardList() {
-        List<CardDto> cardDtoList = cardService.getAllCard();
+    @GetMapping
+    public BaseResponse<List<CardDto>> getCardList(Pageable pageable) {
+        List<CardDto> cardDtoList = cardService.getAllCard(pageable);
         return BaseResponse.<List<CardDto>>builder()
                 .statusCode(HttpStatus.OK)
                 .message("Success")
@@ -39,8 +40,8 @@ public class CardController {
                 .build();
     }
 
-    @GetMapping("/card-detail")
-    public BaseResponse<CardDto> getCardDetail(@RequestParam
+    @GetMapping("/{cardNumber}")
+    public BaseResponse<CardDto> getCardDetail(@PathVariable
                                                @Pattern(regexp = "(^$|[0-9]{12})", message = "CardNumber must be 12 digits") String cardNumber) {
         CardDto result = cardService.getByCardNumber(cardNumber);
         return BaseResponse.<CardDto>builder()
@@ -50,33 +51,19 @@ public class CardController {
                 .build();
     }
 
-    @PutMapping("/card/{id}")
+    @PutMapping("/{id}")
     public BaseResponse<?> updateCard(@PathVariable Long id,
                                       @Valid @RequestBody CardDto cardDto) {
-        boolean result = cardService.updateCard(id, cardDto);
-        if (!result) {
-            return BaseResponse.builder()
-                    .statusCode(HttpStatus.EXPECTATION_FAILED)
-                    .message("Updated Failed")
-                    .build();
-        }
-
+        cardService.updateCard(id, cardDto);
         return BaseResponse.builder()
                 .statusCode(HttpStatus.OK)
                 .message("Updated")
                 .build();
     }
 
-    @DeleteMapping("/card/{mobileNumber}")
-    public BaseResponse<?> deleteCard(@PathVariable String mobileNumber) {
-        boolean result = cardService.deleteCard(mobileNumber);
-        if (!result) {
-            return BaseResponse.builder()
-                    .statusCode(HttpStatus.EXPECTATION_FAILED)
-                    .message("Deleted Failed")
-                    .build();
-        }
-
+    @DeleteMapping
+    public BaseResponse<?> deleteCard(@RequestParam String mobileNumber) {
+        cardService.deleteCard(mobileNumber);
         return BaseResponse.builder()
                 .statusCode(HttpStatus.OK)
                 .message("Deleted")

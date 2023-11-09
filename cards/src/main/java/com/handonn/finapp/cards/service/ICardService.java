@@ -2,7 +2,7 @@ package com.handonn.finapp.cards.service;
 
 
 import com.handonn.finapp.cards.model.CardDto;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ public interface ICardService {
 
     void create(CardDto cardDto);
 
-    List<CardDto> getAllCard();
+    List<CardDto> getAllCard(Pageable pageable);
 
     CardDto getByCardNumber(String cardNumber);
 
-    boolean updateCard(Long id, CardDto cardDto);
+    void updateCard(Long id, CardDto cardDto);
 
-    boolean deleteCard(String mobileNumber);
+    void deleteCard(String mobileNumber);
 
 }
