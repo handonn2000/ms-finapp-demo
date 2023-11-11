@@ -4,8 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum EInternalErrorCode {
-    PARSING_EXCEPTION(0_001, "Parsing Error"),
-    OTHER_EXCEPTION(0_000, "Internal Error"),
+    PARSING_EXCEPTION(0_000, "Parsing Error"),
+    OTHER_EXCEPTION(0_001, "Internal Error"),
+    IO_EXCEPTION(0_002, "IO Error"),
+    CONNECTION_EXCEPTION(0_003, "Service Unavailable"),
     ;
 
     private final int code;
