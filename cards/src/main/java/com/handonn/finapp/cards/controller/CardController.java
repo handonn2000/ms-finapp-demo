@@ -1,17 +1,16 @@
 package com.handonn.finapp.cards.controller;
 
+import com.handonn.finapp.cards.model.CardCriteria;
 import com.handonn.finapp.cards.model.CardDto;
 import com.handonn.finapp.cards.service.ICardService;
 import com.handonn.finapp.common.model.BaseResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/cards")
@@ -31,12 +30,12 @@ public class CardController {
     }
 
     @GetMapping
-    public BaseResponse<List<CardDto>> getCardList(Pageable pageable) {
-        List<CardDto> cardDtoList = cardService.getAllCard(pageable);
-        return BaseResponse.<List<CardDto>>builder()
+    public BaseResponse<Page<CardDto>> getCardList(CardCriteria criteria) {
+        Page<CardDto> cardDtoPage = cardService.getAllCard(criteria);
+        return BaseResponse.<Page<CardDto>>builder()
                 .statusCode(HttpStatus.OK)
                 .message("Success")
-                .data(cardDtoList)
+                .data(cardDtoPage)
                 .build();
     }
 

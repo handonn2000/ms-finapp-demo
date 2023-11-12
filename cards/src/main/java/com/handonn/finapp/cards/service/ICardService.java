@@ -1,16 +1,15 @@
 package com.handonn.finapp.cards.service;
 
 
+import com.handonn.finapp.cards.model.CardCriteria;
 import com.handonn.finapp.cards.model.CardDto;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface ICardService {
 
     void create(CardDto cardDto);
 
-    List<CardDto> getAllCard(Pageable pageable);
+    Page<CardDto> getAllCard(CardCriteria filter);
 
     CardDto getByCardNumber(String cardNumber);
 

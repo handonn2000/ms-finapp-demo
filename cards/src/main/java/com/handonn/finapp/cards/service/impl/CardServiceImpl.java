@@ -3,16 +3,18 @@ package com.handonn.finapp.cards.service.impl;
 import com.handonn.finapp.cards.entity.CardEntity;
 import com.handonn.finapp.cards.exception.CardException;
 import com.handonn.finapp.cards.exception.ECardErrorCode;
+import com.handonn.finapp.cards.model.CardCriteria;
 import com.handonn.finapp.cards.model.CardDto;
+import com.handonn.finapp.cards.repository.CardSpecificationBuilder;
 import com.handonn.finapp.cards.repository.ICardRepository;
 import com.handonn.finapp.cards.service.ICardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,14 +34,16 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public List<CardDto> getAllCard(Pageable pageable) {
-        Page<CardEntity> entityList = cardRepo.findAll(pageable);
-        List<CardDto> cardDtoList = new ArrayList<>();
-        entityList.forEach(record -> {
-            cardDtoList.add(CardDto.from(record));
-        });
-
-        return cardDtoList;
+    public Page<CardDto> getAllCard(CardCriteria filter) {
+        Sort sort = Sort.by(filter.getDirection(), filter.getSortBy());
+        Pageable pageable = PageRequest.of(filter.getOffset(), filter.getSize(), sort);
+        Specification<CardEntity> specs = new CardSpecificationBuilder()
+                .cardTypeEqual(filter.getCardTypes())
+                .byTotalAmountGreaterThanEqual(filter.getMinTotalAmount())
+                .byTotalAmountLessThanEqual(filter.getMaxTotalAmount())
+                .build();
+        Page<CardEntity> entityList = cardRepo.findAll(specs, pageable);
+        return entityList.map(CardDto::from);
     }
 
     @Override
