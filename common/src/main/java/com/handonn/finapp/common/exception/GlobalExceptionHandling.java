@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.rmi.ConnectException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandling {
 
+    private static final int STACK_TRACE_LIMIT = 5;
+
     @ExceptionHandler({BusinessException.class})
     public ErrorResponse handleBusinessError(BusinessException e, WebRequest webRequest) {
-        log.error("[BUSINESS_ERROR]: {}", e.getMessage());
+        this.logError(ErrorType.BUSINESS_ERROR, e, e.getDescription());
 
         return ErrorResponse.builder()
                 .errorCode(e.getCode())
@@ -30,12 +34,24 @@ public class GlobalExceptionHandling {
 
     @ExceptionHandler({InternalException.class})
     public ErrorResponse handleInternalExceptions(InternalException e, WebRequest webRequest) {
-        log.error("[INTERNAL_ERROR]: {}", e.getMessage());
+        this.logError(ErrorType.INTERNAL_ERROR, e);
 
         return ErrorResponse.builder()
                 .errorCode(e.getError().getCode())
                 .endPoint(webRequest.getDescription(false))
                 .description("[" + e.getServiceName() + "] " + e.getError().getDescription())
+                .errorTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler({ConnectException.class})
+    public ErrorResponse handleConnectionExceptions(ConnectException e, WebRequest webRequest) {
+        this.logError(ErrorType.CONNECTION_ERROR, e);
+
+        return ErrorResponse.builder()
+                .errorCode(EInternalErrorCode.CONNECTION_EXCEPTION.getCode())
+                .endPoint(webRequest.getDescription(false))
+                .description(EInternalErrorCode.CONNECTION_EXCEPTION.getDescription())
                 .errorTime(LocalDateTime.now())
                 .build();
     }
@@ -50,7 +66,7 @@ public class GlobalExceptionHandling {
             sbDescription.append(", ");
         });
 
-        log.error("[ARGUMENT_ERROR]: {}", e.getMessage());
+        this.logError(ErrorType.INPUT_ERROR, e);
         return ErrorResponse.builder()
                 .errorCode(ECommonErrorCode.INPUT_ARGUMENT_INVALID.getCode())
                 .endPoint(webRequest.getDescription(false))
@@ -59,9 +75,9 @@ public class GlobalExceptionHandling {
                 .build();
     }
 
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({Exception.class, Error.class})
     public ErrorResponse handleOtherExceptions(Exception e, WebRequest webRequest) {
-        log.error("[SYSTEM_ERROR]: {}", e.getMessage());
+        this.logError(ErrorType.OTHERS_ERROR, e);
 
         return ErrorResponse.builder()
                 .errorCode(EInternalErrorCode.OTHER_EXCEPTION.getCode())
@@ -69,5 +85,21 @@ public class GlobalExceptionHandling {
                 .description(EInternalErrorCode.OTHER_EXCEPTION.getDescription())
                 .errorTime(LocalDateTime.now())
                 .build();
+    }
+
+    private void logError(ErrorType errorType, Exception e, String... messages) {
+        var stackTraces = Arrays.stream(e.getStackTrace())
+                .limit(STACK_TRACE_LIMIT)
+                .toList();
+
+        StringBuilder errorSb = new StringBuilder();
+        errorSb.append("[").append(errorType.name()).append("]: ");
+        for (String message : messages) {
+            errorSb.append(message);
+            errorSb.append("\n");
+        }
+        errorSb.append(stackTraces);
+
+        log.error(errorSb.toString());
     }
 }

@@ -12,12 +12,14 @@
 
 	<groupId>com.handonn.finapp</groupId>
 	<artifactId>loans</artifactId>
-	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
 	<name>loans</name>
+	<version>1.0.0</version>
 	<description>Microservices for loans management in Finapp</description>
 
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<common.version>1.0.0</common.version>
 		<springdoc.version>2.2.0</springdoc.version>
 	</properties>
