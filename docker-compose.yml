@@ -1,0 +1,38 @@
+services:
+  accounts:
+    image: "finapp/accounts:1.0.0"
+    container_name: "finapp-account-service"
+    ports:
+      - "8088:8088"
+    deploy:
+      resources:
+        limits:
+          memory: "700m"
+    networks:
+      - finapp
+  loans:
+    image: "finapp/loans:1.0.0"
+    container_name: "finapp-loan-service"
+    ports:
+      - "8089:8089"
+    deploy:
+      resources:
+        limits:
+          memory: "700m"
+    networks:
+      - finapp
+  cards:
+    image: "finapp/cards:1.0.0"
+    container_name: "finapp-card-service"
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: "700m"
+    networks:
+      - finapp
+
+networks:
+  finapp:
+    driver: "bridge"

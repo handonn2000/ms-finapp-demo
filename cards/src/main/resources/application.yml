@@ -1,5 +1,7 @@
 server:
-  port: 8080
+  port: 8090
+  servlet.context-path: "/finapp-card-service"
+
 spring:
   datasource:
     url: jdbc:h2:mem:testdb

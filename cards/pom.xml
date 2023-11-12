@@ -12,12 +12,14 @@
 
 	<groupId>com.handonn.finapp</groupId>
 	<artifactId>cards</artifactId>
-	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
 	<name>cards</name>
+	<version>1.0.0</version>
 	<description>Card Service</description>
 
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<common.version>1.0.0</common.version>
 		<springdoc.version>2.2.0</springdoc.version>
 	</properties>
@@ -75,6 +77,19 @@
 							<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+
+
+			<!-- Google JIB (for containerization) -->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<to>
+						<image>finapp/${artifactId}:${version}</image>
+					</to>
 				</configuration>
 			</plugin>
 		</plugins>
