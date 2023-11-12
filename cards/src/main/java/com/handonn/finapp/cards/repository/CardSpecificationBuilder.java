@@ -46,5 +46,4 @@ public class CardSpecificationBuilder {
     public Specification<CardEntity> build() {
         return Specification.allOf(specList);
     }
-//    }
 }

@@ -34,13 +34,13 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public Page<CardDto> getAllCard(CardCriteria filter) {
-        Sort sort = Sort.by(filter.getDirection(), filter.getSortBy());
-        Pageable pageable = PageRequest.of(filter.getOffset(), filter.getSize(), sort);
+    public Page<CardDto> getAllCard(CardCriteria criteria) {
+        Sort sort = Sort.by(criteria.getDirection(), criteria.getSortBy());
+        Pageable pageable = PageRequest.of(criteria.getOffset(), criteria.getSize(), sort);
         Specification<CardEntity> specs = new CardSpecificationBuilder()
-                .cardTypeEqual(filter.getCardTypes())
-                .byTotalAmountGreaterThanEqual(filter.getMinTotalAmount())
-                .byTotalAmountLessThanEqual(filter.getMaxTotalAmount())
+                .cardTypeEqual(criteria.getCardTypes())
+                .byTotalAmountGreaterThanEqual(criteria.getMinTotalAmount())
+                .byTotalAmountLessThanEqual(criteria.getMaxTotalAmount())
                 .build();
         Page<CardEntity> entityList = cardRepo.findAll(specs, pageable);
         return entityList.map(CardDto::from);

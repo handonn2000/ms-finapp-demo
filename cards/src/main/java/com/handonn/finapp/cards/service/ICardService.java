@@ -9,7 +9,7 @@ public interface ICardService {
 
     void create(CardDto cardDto);
 
-    Page<CardDto> getAllCard(CardCriteria filter);
+    Page<CardDto> getAllCard(CardCriteria criteria);
 
     CardDto getByCardNumber(String cardNumber);
 

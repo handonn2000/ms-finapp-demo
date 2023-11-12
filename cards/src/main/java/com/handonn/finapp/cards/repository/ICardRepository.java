@@ -23,20 +23,4 @@ public interface ICardRepository extends JpaRepository<CardEntity, Long>, JpaSpe
     @Modifying
     void deleteByMobileNumber(String mobileNumber);
 
-    interface Specifications {
-        static Specification<CardEntity> byCardType(ECardType cardType) {
-            return (root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("cardType"), cardType);
-        }
-
-        static Specification<CardEntity> byTotalAmountGreaterThanEqual(BigDecimal amount) {
-            return (root, query, criteriaBuilder) ->
-                    criteriaBuilder.greaterThanOrEqualTo(root.get("amountTotal"), amount);
-        }
-
-        static Specification<CardEntity> byTotalAmountLessThanEqual(BigDecimal amount) {
-            return (root, query, criteriaBuilder) ->
-                    criteriaBuilder.lessThanOrEqualTo(root.get("amountTotal"), amount);
-        }
-    }
 }
