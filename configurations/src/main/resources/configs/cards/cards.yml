@@ -1,6 +1,6 @@
 spring:
   application:
-    name: finapp-card-service
+    name: cards
 
 server:
   port: 8089

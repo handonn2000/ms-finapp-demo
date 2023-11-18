@@ -4,12 +4,11 @@ server:
 build:
   version: 1.0
 
-accounts:
+loans:
   service-name: finapp-loan-service-qa
   developers:
     - "Han"
     - "Duy"
     - "Quan"
   schemas:
-    account: 1.0-qa
-    customer: 1.0-qa
+    loan: 1.0-qa

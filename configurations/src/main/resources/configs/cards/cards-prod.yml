@@ -4,12 +4,11 @@ server:
 build:
   version: 1.0
 
-accounts:
+cards:
   service-name: finapp-card-service
   developers:
     - "Han"
     - "Duy"
     - "Quan"
   schemas:
-    account: 1.0
-    customer: 1.0
+    card: 1.0

@@ -1,5 +1,4 @@
 server:
-  port: 8088
   servlet.context-path: "/finapp-account-service"
 
 spring:
