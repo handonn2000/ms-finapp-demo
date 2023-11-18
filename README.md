@@ -2,14 +2,17 @@
 Author: [handonn2000](https://github.com/handonn2000)
 
 Description:
-This project is implemented to practice the concept of microservice, cloud native related tools.
+This project is implemented to practice the concept of microservice, cloud-native related tools.
 
 ## Progress:
 - [x] Set up the code base
-- [ ] Implement account services
-- [ ] Implement loan services
-- [ ] Implement card services
-- [ ] Configuration and Deployment
+- [x] Implement account services
+- [x] Implement loan services
+- [x] Implement card services
+- [x] Set up Configuration Central
+- [ ] Set up CICD and deployment
+- [ ] Security Apply
+- [ ] Monitoring Tools
 - [ ] Documenting and finalizing README file
 
 ## The tech stack:
