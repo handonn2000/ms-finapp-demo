@@ -1,11 +1,13 @@
 package com.handonn.finapp.accounts.controller;
 
+import com.handonn.finapp.accounts.config.AccountConfig;
 import com.handonn.finapp.accounts.model.CustomerDto;
 import com.handonn.finapp.accounts.service.IAccountService;
 import com.handonn.finapp.common.model.BaseResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     private final IAccountService accountService;
+
+    private final Environment environment;
+
+    private final AccountConfig accountConfig;
 
     @PostMapping
     public BaseResponse<?> create(@RequestBody @Valid CustomerDto customerDto) {
@@ -57,6 +63,24 @@ public class AccountController {
         return BaseResponse.<CustomerDto> builder()
                 .statusCode(HttpStatus.ACCEPTED)
                 .message("success")
+                .build();
+    }
+
+    @GetMapping("/version")
+    public BaseResponse<String> getBuildVersion() {
+        return BaseResponse.<String>builder()
+                .statusCode(HttpStatus.OK)
+                .message("build version")
+                .data(environment.getProperty("build.version"))
+                .build();
+    }
+
+    @GetMapping("/info")
+    public BaseResponse<AccountConfig> getAccountServiceInfo() {
+        return BaseResponse.<AccountConfig>builder()
+                .statusCode(HttpStatus.OK)
+                .message("account config info")
+                .data(accountConfig)
                 .build();
     }
 }

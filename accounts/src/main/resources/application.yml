@@ -3,6 +3,13 @@ server:
   servlet.context-path: "/finapp-account-service"
 
 spring:
+  application:
+    name: accounts
+  profiles:
+    active: default
+  config:
+    import: "optional:configserver:http://localhost:8071/finapp-configuration-central"
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
