@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/accounts")
 @RequiredArgsConstructor
 @Validated
-@Tag(name = "Account Service", description = "CRUD for account operation")
+@Tag(name = "Account API", description = "CRUD for account operation")
 public class AccountController {
 
     private final IAccountService accountService;
@@ -33,7 +33,7 @@ public class AccountController {
     public BaseResponse<CustomerDto> getByMobileNumber(@RequestParam String mobileNumber) {
         CustomerDto customer = accountService.getByMobileNumber(mobileNumber);
 
-        return BaseResponse.<CustomerDto> builder()
+        return BaseResponse.<CustomerDto>builder()
                 .statusCode(HttpStatus.OK)
                 .message("success")
                 .data(customer)
@@ -54,7 +54,7 @@ public class AccountController {
     public BaseResponse<?> delete(@RequestParam String mobileNumber) {
         accountService.deleteByMobileNumber(mobileNumber);
 
-        return BaseResponse.<CustomerDto> builder()
+        return BaseResponse.<CustomerDto>builder()
                 .statusCode(HttpStatus.ACCEPTED)
                 .message("success")
                 .build();

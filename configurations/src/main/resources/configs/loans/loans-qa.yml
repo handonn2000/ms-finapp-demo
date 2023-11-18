@@ -1,0 +1,14 @@
+server:
+  servlet.context-path: /finapp-loan-service-qa
+
+build:
+  version: 1.0
+
+loans:
+  service-name: finapp-loan-service-qa
+  developers:
+    - "Han"
+    - "Duy"
+    - "Quan"
+  schemas:
+    loan: 1.0-qa

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: loans
+
+server:
+  port: 8090

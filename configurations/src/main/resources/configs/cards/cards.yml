@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: cards
+
+server:
+  port: 8089

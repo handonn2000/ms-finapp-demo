@@ -1,0 +1,14 @@
+server:
+  servlet.context-path: /finapp-card-service
+
+build:
+  version: 1.0
+
+cards:
+  service-name: finapp-card-service
+  developers:
+    - "Han"
+    - "Duy"
+    - "Quan"
+  schemas:
+    card: 1.0
