@@ -11,5 +11,5 @@ accounts:
     - "Duy"
     - "Quan"
   schemas:
-    account: 1.0-qa
-    customer: 1.0-qa
+    account: 1.0-QA
+    customer: 1.0-QA
