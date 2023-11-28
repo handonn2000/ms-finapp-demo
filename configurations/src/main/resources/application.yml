@@ -4,9 +4,19 @@ spring:
   profiles:
     active:
       - "native"
+      - "git"
   cloud:
     config:
       server:
+        git:
+          uri: "https://github.com/handonn2000/ms-finapp-demo.git"
+          default-label: master
+          timeout: 5
+          force-pull: true
+          search-paths:
+            - "configurations/src/main/resources/configs/accounts"
+            - "configurations/src/main/resources/configs/cards"
+            - "configurations/src/main/resources/configs/loans"
         native:
           search-locations:
             - "classpath:/configs/accounts"

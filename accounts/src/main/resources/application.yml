@@ -5,7 +5,7 @@ spring:
   application:
     name: accounts
   profiles:
-    active: default
+    active: qa
   config:
     import: "optional:configserver:http://localhost:8071/finapp-configuration-central"
 
@@ -21,3 +21,30 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - busrefresh
+          - health
+  endpoint:
+    refresh:
+      enabled: true
+
+springdoc:
+  show-actuator: true

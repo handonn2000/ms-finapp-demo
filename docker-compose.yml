@@ -33,6 +33,13 @@ services:
     networks:
       - finapp
 
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    tty: true
+
 networks:
   finapp:
     driver: "bridge"

@@ -26,6 +26,7 @@
 	</properties>
 
 	<dependencies>
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -43,26 +44,34 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.handonn.finapp.common</groupId>
-			<artifactId>common-modules</artifactId>
-			<version>${common.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
+
+		<!-- OpenAPI -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${springdoc.version}</version>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Common -->
+		<dependency>
+			<groupId>com.handonn.finapp.common</groupId>
+			<artifactId>common-modules</artifactId>
+			<version>${common.version}</version>
+		</dependency>
+
+		<!-- Others -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Spring Cloud -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-client</artifactId>
 		</dependency>
 	</dependencies>
 

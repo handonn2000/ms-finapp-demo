@@ -21,3 +21,23 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  cloud:
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - busrefresh
+          - health
+  endpoint:
+    refresh:
+      enabled: true
+
+springdoc:
+  show-actuator: true
