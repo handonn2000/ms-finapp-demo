@@ -5,12 +5,11 @@ build:
   version: 1.0
 
 accounts:
-  env-name: Quality Assurance Environment
   service-name: finapp-account-service-qa
   developers:
-    - "Han"
-    - "Duy"
-    - "Quan"
+    - "Han QA"
+    - "Duy QA"
+    - "Quan QA"
   schemas:
     account: 1.0-QA
     customer: 1.0-QA
