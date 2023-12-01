@@ -5,6 +5,7 @@ build:
   version: 1.0
 
 loans:
+  env-name: Quality Assurance Environment
   service-name: finapp-loan-service-qa
   developers:
     - "Han"

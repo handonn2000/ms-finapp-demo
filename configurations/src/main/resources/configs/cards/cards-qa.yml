@@ -5,6 +5,7 @@ build:
   version: 1.0
 
 cards:
+  env-name: Quality Assurance Environment
   service-name: finapp-card-service-qa
   developers:
     - "Han"
