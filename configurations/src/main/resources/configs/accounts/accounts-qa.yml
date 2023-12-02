@@ -2,7 +2,7 @@ server:
   servlet.context-path: /finapp-account-service-qa
 
 build:
-  version: 1.0
+  version: 1.1
 
 accounts:
   service-name: finapp-account-service-qa
