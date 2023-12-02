@@ -7,8 +7,8 @@ build:
 cards:
   service-name: finapp-card-service-qa
   developers:
-    - "Han QA"
-    - "Duy QA"
-    - "Quan QA"
+    - "Han"
+    - "Duy"
+    - "Quan"
   schemas:
     card: 1.0-qa

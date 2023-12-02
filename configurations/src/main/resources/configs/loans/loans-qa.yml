@@ -7,8 +7,8 @@ build:
 loans:
   service-name: finapp-loan-service-qa
   developers:
-    - "Han QA"
-    - "Duy QA"
-    - "Quan QA"
+    - "Han"
+    - "Duy"
+    - "Quan"
   schemas:
     loan: 1.0-qa
