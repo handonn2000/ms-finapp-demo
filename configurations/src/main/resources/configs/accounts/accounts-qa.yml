@@ -7,9 +7,9 @@ build:
 accounts:
   service-name: finapp-account-service-qa
   developers:
-    - "Han-qa"
-    - "Duy-qa"
-    - "Quan-qa"
+    - "Han-qaa"
+    - "Duy-qaa"
+    - "Quan-qaa"
   schemas:
     account: 1.0-QA
     customer: 1.0-QA
