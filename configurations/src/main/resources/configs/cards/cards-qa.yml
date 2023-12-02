@@ -2,13 +2,13 @@ server:
   servlet.context-path: /finapp-card-service-qa
 
 build:
-  version: 1.1
+  version: 1.0
 
 cards:
   service-name: finapp-card-service-qa
   developers:
-    - "Han"
-    - "Duy"
-    - "Quan"
+    - "Han-qa"
+    - "Duy-qa"
+    - "Quan-qa"
   schemas:
     card: 1.0-qa
