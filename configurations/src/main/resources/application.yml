@@ -1,19 +1,38 @@
+server:
+  port: 8071
+
 spring:
   application:
     name: "finapp-configuration-central"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   profiles:
     active:
-      - "native"
+#      - "native"
+      - "git"
   cloud:
     config:
       server:
-        native:
-          search-locations:
-            - "classpath:/configs/accounts"
-            - "classpath:/configs/cards"
-            - "classpath:/configs/loans"
+        git:
+          uri: "https://github.com/handonn2000/ms-finapp-demo.git"
+          default-label: master
+          timeout: 10
+          force-pull: true
+          search-paths:
+            - "configurations/src/main/resources/configs/accounts"
+            - "configurations/src/main/resources/configs/cards"
+            - "configurations/src/main/resources/configs/loans"
+#        native:
+#          search-locations:
+#            - "classpath:/configs/accounts"
+#            - "classpath:/configs/cards"
+#            - "classpath:/configs/loans"
 
-server:
-  port: 8071
-  servlet:
-    context-path: "/finapp-configuration-central"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
