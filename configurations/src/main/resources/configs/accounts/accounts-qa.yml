@@ -1,5 +1,5 @@
 server:
-  servlet.context-path: /finapp-account-service-qa
+  servlet.context-path: "/finapp-account-service/qa"
 
 build:
   version: 1.0

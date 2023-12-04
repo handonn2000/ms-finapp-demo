@@ -1,0 +1,11 @@
+services:
+  finapp-account-config:
+    image: "finapp/accounts:1.0.0"
+    container_name: "finapp-account-service"
+    ports:
+      - "8088:8088"
+    extends:
+      file: "../common-config.yml"
+      service: "base-config-service"
+    environment:
+      SPRING_APPLICATION_NAME: accounts

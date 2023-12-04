@@ -1,0 +1,11 @@
+services:
+  finapp-card-config:
+    image: "finapp/cards:1.0.0"
+    container_name: "finapp-card-service"
+    ports:
+      - "8090:8090"
+    extends:
+      file: "../common-config.yml"
+      service: "base-config-service"
+    environment:
+      SPRING_APPLICATION_NAME: cards

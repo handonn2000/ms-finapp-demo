@@ -1,21 +1,20 @@
-server:
-  servlet.context-path: "/finapp-account-service"
-
 spring:
   application:
     name: accounts
   profiles:
-    active: qa
+    active: default
   config:
-    import: "optional:configserver:http://localhost:8071/finapp-configuration-central"
+    import: "configserver:http://localhost:8071"
 
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     username: sa
     password: ''
+
   h2:
     console.enabled: true
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true

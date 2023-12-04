@@ -4,3 +4,16 @@ spring:
 
 server:
   port: 8090
+  servlet.context-path: "/finapp-loan-service/dev"
+
+build:
+  version: 1.0
+
+loans:
+  service-name: finapp-loan-service-dev
+  developers:
+    - "Han"
+    - "Duy"
+    - "Quan"
+  schemas:
+    loan: 1.0-dev

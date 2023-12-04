@@ -1,0 +1,11 @@
+services:
+  finapp-loan-config:
+    image: "finapp/loans:1.0.0"
+    container_name: "finapp-loan-service"
+    ports:
+      - "8089:8089"
+    extends:
+      file: "../common-config.yml"
+      service: "base-config-service"
+    environment:
+      SPRING_APPLICATION_NAME: loans

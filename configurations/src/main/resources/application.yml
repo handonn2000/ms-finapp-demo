@@ -11,7 +11,7 @@ spring:
     password: guest
   profiles:
     active:
-#      - "native"
+      - "native"
       - "git"
   cloud:
     config:
@@ -25,14 +25,21 @@ spring:
             - "configurations/src/main/resources/configs/accounts"
             - "configurations/src/main/resources/configs/cards"
             - "configurations/src/main/resources/configs/loans"
-#        native:
-#          search-locations:
-#            - "classpath:/configs/accounts"
-#            - "classpath:/configs/cards"
-#            - "classpath:/configs/loans"
+        native:
+          search-locations:
+            - "classpath:/configs/accounts"
+            - "classpath:/configs/cards"
+            - "classpath:/configs/loans"
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  health:
+    livenessstate.enabled: true
+    readinessstate.enabled: true
+  endpoint:
+    health:
+      probes.enabled: true
+      enabled: false

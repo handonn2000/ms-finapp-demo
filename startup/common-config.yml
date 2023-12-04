@@ -1,0 +1,27 @@
+services:
+  network-config-service:
+    networks:
+      - finapp
+    healthcheck:
+      start_period: 5s
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  deploy-config-service:
+    extends:
+      service: network-config-service
+    deploy:
+      resources:
+        limits:
+          memory: "700m"
+
+  base-config-service:
+    extends:
+      service: deploy-config-service
+    environment:
+      SPRING_PROFILES_ACTIVE: qa
+      SPRING_CONFIG_IMPORT: configserver:http://configurations-central:8071/
+    depends_on:
+      configurations-central:
+        condition: service_healthy
