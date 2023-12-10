@@ -4,3 +4,16 @@ spring:
 
 server:
   port: 8089
+
+build:
+  version: 1.0
+
+cards:
+  service-name: finapp-card-service-dev
+  env-name: Developer
+  developers:
+    - "Han"
+    - "Duy"
+    - "Quan"
+  schemas:
+    card: 1.0-dev

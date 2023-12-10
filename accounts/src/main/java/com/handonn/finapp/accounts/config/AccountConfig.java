@@ -10,7 +10,9 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "accounts")
 @Getter @Setter
 public class AccountConfig {
+
     private String serviceName;
+    private String envName;
     private List<String> developers;
     private Map<String, String> schemas;
 }

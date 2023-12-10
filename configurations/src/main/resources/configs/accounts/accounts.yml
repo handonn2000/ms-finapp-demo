@@ -4,3 +4,18 @@ spring:
 
 server:
   port: 8088
+
+build:
+  version: 1.0-dev
+
+accounts:
+  service-name: finapp-account-service-dev
+  env-name: Developer
+  developers:
+    - "Han"
+    - "Duy"
+    - "Quan"
+  schemas:
+    account: 1.0-dev
+    customer: 1.0-dev
+

@@ -1,6 +1,3 @@
-server:
-  servlet.context-path: /finapp-loan-service
-
 build:
   version: 1.0
 

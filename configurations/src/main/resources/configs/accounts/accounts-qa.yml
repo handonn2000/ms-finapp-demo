@@ -1,15 +1,13 @@
-server:
-  servlet.context-path: /finapp-account-service-qa
-
 build:
   version: 1.0
 
 accounts:
   service-name: finapp-account-service-qa
+  env-name: Quality Assurance
   developers:
-    - "Han-qaa"
-    - "Duy-qaa"
-    - "Quan-qaa"
+    - "Han"
+    - "Duy"
+    - "Quan"
   schemas:
     account: 1.0-QA
     customer: 1.0-QA

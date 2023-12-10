@@ -1,14 +1,12 @@
-server:
-  servlet.context-path: /finapp-loan-service-qa
-
 build:
   version: 1.0
 
 loans:
   service-name: finapp-loan-service-qa
+  env-name: Quality Assurance
   developers:
-    - "Han-qaa"
-    - "Duy-qaa"
-    - "Quan-qaa"
+    - "Han"
+    - "Duy"
+    - "Quan"
   schemas:
     loan: 1.0-qa

@@ -1,25 +1,26 @@
-server:
-  servlet.context-path: "/finapp-loan-service"
-
 spring:
   application:
     name: loans
   profiles:
     active: default
   config:
-    import: "optional:configserver:http://localhost:8071/finapp-configuration-central"
+    import: "optional:configserver:http://localhost:8071/"
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     username: sa
     password: ''
+
   h2:
     console.enabled: true
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+
   rabbitmq:
     host: localhost
     port: 5672
@@ -40,9 +41,17 @@ management:
           - refresh
           - busrefresh
           - health
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   endpoint:
     refresh:
       enabled: true
+    health:
+      probes:
+        enabled: true
 
 springdoc:
   show-actuator: true

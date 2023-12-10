@@ -1,14 +1,12 @@
-server:
-  servlet.context-path: /finapp-card-service-qa
-
 build:
   version: 1.0
 
 cards:
   service-name: finapp-card-service-qa
+  env-name: Quality Assurance
   developers:
-    - "Han-qaa"
-    - "Duy-qaa"
-    - "Quan-qaa"
+    - "Han"
+    - "Duy"
+    - "Quan"
   schemas:
     card: 1.0-qa

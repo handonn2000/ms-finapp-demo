@@ -13,6 +13,7 @@ import java.util.Map;
 public class LoanConfig {
 
     private String serviceName;
+    private String envName;
     private List<String> developers;
     private Map<String, String> schemas;
 }

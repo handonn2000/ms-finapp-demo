@@ -1,11 +1,9 @@
-server:
-  servlet.context-path: /finapp-card-service
-
 build:
   version: 1.0
 
 cards:
   service-name: finapp-card-service
+  env-name: Production
   developers:
     - "Han"
     - "Duy"

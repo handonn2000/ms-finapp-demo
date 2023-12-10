@@ -4,3 +4,16 @@ spring:
 
 server:
   port: 8090
+
+build:
+  version: 1.0
+
+loans:
+  service-name: finapp-loan-service-dev
+  env-name: Developer
+  developers:
+    - "Han"
+    - "Duy"
+    - "Quan"
+  schemas:
+    loan: 1.0-dev

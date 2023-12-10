@@ -1,11 +1,9 @@
-server:
-  servlet.context-path: /finapp-account-service
-
 build:
   version: 1.0
 
 accounts:
   service-name: finapp-account-service
+  env-name: Production
   developers:
     - "Han"
     - "Duy"
