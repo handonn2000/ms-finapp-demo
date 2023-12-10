@@ -1,0 +1,30 @@
+services:
+  network-service:
+    networks:
+      - finapp
+    healthcheck:
+      test: "echo 1"
+      start_period: 5s
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  base-config-service:
+    extends:
+      service: network-service
+    deploy:
+      resources:
+        limits:
+          memory: "700m"
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+
+  base-application-service:
+    extends:
+      service: base-config-service
+    depends_on:
+      config-central:
+        condition: service_healthy
+    environment:
+      SPRING_CONFIG_IMPORT: "configserver:http://config-central:8071/"
+      SPRING_PROFILES_ACTIVE: default
