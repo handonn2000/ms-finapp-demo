@@ -10,7 +10,7 @@ build:
 
 cards:
   service-name: finapp-card-service-dev
-  env-name: Developer
+  env-name: Developer (dev)
   developers:
     - "Han"
     - "Duy"

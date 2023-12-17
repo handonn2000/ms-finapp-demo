@@ -10,7 +10,7 @@ build:
 
 loans:
   service-name: finapp-loan-service-dev
-  env-name: Developer
+  env-name: Developer (dev)
   developers:
     - "Han"
     - "Duy"

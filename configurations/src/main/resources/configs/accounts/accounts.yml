@@ -10,7 +10,7 @@ build:
 
 accounts:
   service-name: finapp-account-service-dev
-  env-name: Developer
+  env-name: Developer (dev)
   developers:
     - "Han"
     - "Duy"
