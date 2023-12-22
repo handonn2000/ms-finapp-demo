@@ -1,6 +1,9 @@
 server:
   port: 8071
 
+springdoc:
+  show-actuator: true
+
 spring:
   application:
     name: "finapp-configuration-central"
@@ -19,6 +22,7 @@ spring:
   cloud:
     config:
       server:
+        prefix: "application"
         git:
           uri: "https://github.com/handonn2000/ms-finapp-demo.git"
           default-label: master
@@ -38,7 +42,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include:
+          - refresh
+          - busrefresh
+          - health
   health:
     readiness-state:
       enabled: true

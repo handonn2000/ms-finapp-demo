@@ -22,6 +22,7 @@
         <java.version>17</java.version>
         <common.version>1.0.0</common.version>
         <springdoc.version>2.2.0</springdoc.version>
+        <postgres.version>42.7.1</postgres.version>
     </properties>
 
     <dependencies>
@@ -55,7 +56,15 @@
         <dependency>
             <groupId>com.handonn.finapp.common</groupId>
             <artifactId>common-modules</artifactId>
-            <version>1.0.0</version>
+            <version>${common.version}</version>
+        </dependency>
+
+        <!-- Postgres Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgres.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Others -->

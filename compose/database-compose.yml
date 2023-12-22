@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  finapp-account-db:
+    image: "postgres"
+    container_name: "finapp-account-postgresdb"
+    ports:
+      - "54320:5432"
+    extends:
+      file: "common.yml"
+      service: postgres-config-db
+    environment:
+      POSTGRES_DB: "account-db"
+    volumes:
+      - ./db-data/account:/var/lib/postgresql/data/
+      - ../accounts/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+  finapp-card-db:
+    image: "postgres"
+    container_name: "finapp-card-postgresdb"
+    ports:
+      - "54321:5432"
+    extends:
+      file: "common.yml"
+      service: postgres-config-db
+    environment:
+      POSTGRES_DB: "card-db"
+    volumes:
+      - ./db-data/card:/var/lib/postgresql/data/
+      - ../cards/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+  finapp-loan-db:
+    image: "postgres"
+    container_name: "finapp-loan-postgresdb"
+    ports:
+      - "54322:5432"
+    extends:
+      file: "common.yml"
+      service: postgres-config-db
+    environment:
+      POSTGRES_DB: "loan-db"
+    volumes:
+      - ./db-data/loan:/var/lib/postgresql/data/
+      - ../loans/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  finapp:
+    driver: bridge

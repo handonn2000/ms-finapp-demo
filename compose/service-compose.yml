@@ -40,6 +40,7 @@ services:
       test: "curl --fail --silent localhost:8088/actuator/health/readiness | grep UP || exit 1"
     environment:
       SPRING_APPLICATION_NAME: accounts
+      SPRING_DATASOURCE_URL: jdbc:postgresql://finapp-account-db:5432/account-db
 
   cards:
     image: "finapp/cards:1.0.0"
@@ -53,6 +54,7 @@ services:
       test: "curl --fail --silent localhost:8089/actuator/health/readiness | grep UP || exit 1"
     environment:
       SPRING_APPLICATION_NAME: cards
+      SPRING_DATASOURCE_URL: jdbc:postgresql://finapp-card-db:5432/card-db
 
   loans:
     image: "finapp/loans:1.0.0"
@@ -66,6 +68,7 @@ services:
       test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
     environment:
       SPRING_APPLICATION_NAME: loans
+      SPRING_DATASOURCE_URL: jdbc:postgresql://finapp-loan-db:5432/loan-db
 
 networks:
   finapp:
