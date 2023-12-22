@@ -3,7 +3,7 @@ services:
     networks:
       - finapp
     healthcheck:
-      test: "echo 1"
+      test: "echo health-check"
       start_period: 5s
       interval: 10s
       timeout: 5s
@@ -26,5 +26,21 @@ services:
       config-central:
         condition: service_healthy
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://config-central:8071/"
+      SPRING_CONFIG_IMPORT: "configserver:http://config-central:8071/application"
       SPRING_PROFILES_ACTIVE: default
+      SPRING_H2_CONSOLE_ENABLED: false
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: false
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_DATASOURCE_USERNAME: finapp
+      SPRING_DATASOURCE_PASSWORD: finapp
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+  postgres-config-db:
+    extends:
+      service: network-service
+    environment:
+      POSTGRES_USER: "finapp"
+      POSTGRES_PASSWORD: "finapp"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
