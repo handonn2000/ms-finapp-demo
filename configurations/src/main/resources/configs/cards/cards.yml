@@ -1,12 +1,61 @@
 spring:
   application:
     name: cards
+  cloud:
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
 
 server:
   port: 8089
 
 build:
   version: 1.0
+
+eureka:
+  instance:
+    hostname: localhost
+    statusPageUrlPath: /api/v1/build/info
+    healthCheckUrlPath: /actuator/health
+    healthcheck:
+      enabled: true
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - busrefresh
+          - health
+          - shutdown
+  endpoint:
+    refresh:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  info:
+    env.enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+springdoc:
+  show-actuator: true
 
 cards:
   service-name: finapp-card-service-dev

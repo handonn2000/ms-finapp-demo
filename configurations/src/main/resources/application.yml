@@ -29,11 +29,13 @@ spring:
           timeout: 10
           force-pull: true
           search-paths:
+            - "configurations/src/main/resources/configs"
             - "configurations/src/main/resources/configs/accounts"
             - "configurations/src/main/resources/configs/cards"
             - "configurations/src/main/resources/configs/loans"
         native:
           search-locations:
+            - "classpath:/configs"
             - "classpath:/configs/accounts"
             - "classpath:/configs/cards"
             - "classpath:/configs/loans"

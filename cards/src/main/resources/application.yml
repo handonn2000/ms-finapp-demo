@@ -27,32 +27,3 @@ spring:
     port: 5672
     username: guest
     password: guest
-
-  cloud:
-    bus:
-      enabled: true
-      refresh:
-        enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - refresh
-          - busrefresh
-          - health
-  health:
-    readiness-state:
-      enabled: true
-    liveness-state:
-      enabled: true
-  endpoint:
-    refresh:
-      enabled: true
-    health:
-      probes:
-        enabled: true
-
-springdoc:
-  show-actuator: true
