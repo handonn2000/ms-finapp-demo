@@ -10,19 +10,28 @@ This project is implemented to practice the concept of microservice, cloud-nativ
 - [x] Implement loan services
 - [x] Implement card services
 - [x] Set up Configuration Central
-- [ ] Set up CICD and deployment
-- [ ] Security Apply
-- [ ] Monitoring Tools
+- [x] Set up OpenFeign for service communication
+- [ ] Set up Spring Cloud GateWay (routing, tracing & logging)
+- [ ] Improve application resilience (circuit breaker, retry, ratelimiter, ...)
+- [ ] Set up monitoring tools (Grafana, Loki, Prometheus)
+- [ ] Set up keycloak security for applications
+- [ ] Apply event-driven architecture (rabbitmq, kafka, spring cloud stream, ...)
+- [ ] Set up kubernetes Orchastrator
+- [ ] Set up Helm
+- [ ] Deployment and CI&CD on GG cloud 
 - [ ] Documenting and finalizing README file
 
 ## The tech stack:
-- Language and tools: Spring Boot, Spring Cloud, Java 17, Kafka, Maven, OpenAPI
-- Security: Oauth2, Keycloak
+- Language and tools: Spring Boot, Spring Cloud, Java 17, RabbitMQ, Kafka, Maven, OpenAPI
+- Security: Oauth2, Keycloak (OpenID)
 - Deployment and Discovery: Docker, Kubernetes, Helm chart, Eureka, Google Cloud
 - Monitoring: Grafana, Loki, Prometheus, Open Telemetry
 
 ## Design System:
 //TODO: diagram and image of the overall architecture
+
+## DB Schema:
+//TODO: ERD diagram
 
 ## Services:
 - account-service
@@ -30,4 +39,4 @@ This project is implemented to practice the concept of microservice, cloud-nativ
 - card-service
 
 ## How to run locally:
-//TODO:
+- From the compose folder, read the guidline in README.md
