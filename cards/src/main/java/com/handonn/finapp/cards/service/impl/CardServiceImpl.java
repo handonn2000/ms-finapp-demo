@@ -48,17 +48,6 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public CardDto getByCardNumber(String cardNumber) {
-        boolean existed = cardRepo.existsByCardNumber(cardNumber);
-        if (!existed) {
-            throw new CardException.BusinessError(ECardErrorCode.CARD_NOT_FOUND);
-        }
-
-        CardEntity card = cardRepo.getByMobileNumber(cardNumber);
-        return CardDto.from(card);
-    }
-
-    @Override
     public CardDto getByMobilePhone(String mobilePhone) {
         boolean existed = cardRepo.existsByMobileNumber(mobilePhone);
         if (!existed) {
