@@ -27,6 +27,25 @@ services:
       service: base-config-service
     healthcheck:
       test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+    environment:
+      SPRING_APPLICATION_NAME: config-central
+
+  service-discovery:
+    image: "finapp/service-discovery:1.0.0"
+    container_name: "finapp-service-discovery"
+    ports:
+      - "8761:8761"
+    extends:
+      file: common.yml
+      service: base-config-service
+    healthcheck:
+      test: "curl --fail --silent localhost:8761/actuator/health/readiness | grep UP || exit 1"
+    environment:
+      SPRING_APPLICATION_NAME: service-discovery
+      SPRING_CONFIG_IMPORT: "configserver:http://config-central:8071/application"
+    depends_on:
+      config-central:
+        condition: service_healthy
 
   accounts:
     image: "finapp/accounts:1.0.0"

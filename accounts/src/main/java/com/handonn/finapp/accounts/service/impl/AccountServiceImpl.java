@@ -1,13 +1,11 @@
 package com.handonn.finapp.accounts.service.impl;
 
+import com.handonn.finapp.accounts.client.CardFeignClient;
 import com.handonn.finapp.accounts.entity.AccountEntity;
 import com.handonn.finapp.accounts.entity.CustomerEntity;
-
 import com.handonn.finapp.accounts.exception.AccountException;
 import com.handonn.finapp.accounts.exception.EAccountErrorCode;
-import com.handonn.finapp.accounts.model.AccountDto;
-import com.handonn.finapp.accounts.model.CustomerDto;
-import com.handonn.finapp.accounts.model.EAccountType;
+import com.handonn.finapp.accounts.model.*;
 import com.handonn.finapp.accounts.repository.AccountRepository;
 import com.handonn.finapp.accounts.repository.CustomerRepository;
 import com.handonn.finapp.accounts.service.IAccountService;
@@ -22,6 +20,7 @@ public class AccountServiceImpl implements IAccountService {
 
     private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
+    private final CardFeignClient cardFeignClient;
 
     @Override
     public void create(CustomerDto customerDto) {
@@ -79,6 +78,24 @@ public class AccountServiceImpl implements IAccountService {
 
         accountRepository.deleteByCustomerId(customer.getId());
         customerRepository.deleteById(customer.getId());
+    }
+
+    @Override
+    public UserCardResponse findCustomerCardInfoByMobilePhone(String mobilePhone) {
+        CustomerEntity customer = customerRepository.findByMobileNumber(mobilePhone).orElseThrow(
+                () -> new AccountException.BusinessError(EAccountErrorCode.CUSTOMER_NOT_FOUND)
+        );
+        var cardResponse = cardFeignClient.getCardByMobilePhone(mobilePhone);
+        CardDto cardInfo = cardResponse.getData();
+        if (cardInfo == null) {
+            throw new AccountException.BusinessError(EAccountErrorCode.CUSTOMER_CARD_NOT_FOUND);
+        }
+
+        return UserCardResponse.builder()
+                .customerId(customer.getId())
+                .mobilePhone(mobilePhone)
+                .cardInfo(cardInfo)
+                .build();
     }
 
     private AccountEntity createAccount(Long customerId) {

@@ -1,6 +1,7 @@
 package com.handonn.finapp.accounts.controller;
 
 import com.handonn.finapp.accounts.model.CustomerDto;
+import com.handonn.finapp.accounts.model.UserCardResponse;
 import com.handonn.finapp.accounts.service.IAccountService;
 import com.handonn.finapp.common.model.BaseResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,6 +48,17 @@ public class AccountController {
         return BaseResponse.builder()
                 .statusCode(HttpStatus.OK)
                 .message("success")
+                .build();
+    }
+
+    @GetMapping("/card")
+    public BaseResponse<UserCardResponse> getCustomerCardInfoByMobilePhone(@RequestParam @Valid String mobilePhone) {
+        UserCardResponse customerCardInfo = accountService.findCustomerCardInfoByMobilePhone(mobilePhone);
+
+        return BaseResponse.<UserCardResponse>builder()
+                .statusCode(HttpStatus.OK)
+                .message("success")
+                .data(customerCardInfo)
                 .build();
     }
 

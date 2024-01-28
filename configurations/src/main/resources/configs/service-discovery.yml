@@ -1,14 +1,30 @@
+spring:
+  application: service-discovery
+  cloud:
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 server:
   port: 8761
 
 eureka:
   instance:
     hostname: localhost
+    lease-renewal-interval-in-seconds: 30
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: true
 
 management:
   endpoints:
@@ -18,14 +34,26 @@ management:
           - refresh
           - busrefresh
           - health
+          - shutdown
+  endpoint:
+    refresh:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  info:
+    env.enabled: true
   health:
     readiness-state:
       enabled: true
     liveness-state:
       enabled: true
-  endpoint:
-    refresh:
-      enabled: true
-    health:
-      probes:
-        enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+springdoc:
+  show-actuator: true

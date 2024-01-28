@@ -17,7 +17,7 @@ eureka:
   instance:
     hostname: localhost
     statusPageUrlPath: /api/v1/build/info
-#    healthCheckUrlPath: /actuator/health
+    healthCheckUrlPath: /actuator/health
     healthcheck:
       enabled: true
     preferIpAddress: true
