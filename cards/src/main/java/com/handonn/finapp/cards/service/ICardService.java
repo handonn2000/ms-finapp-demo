@@ -11,7 +11,7 @@ public interface ICardService {
 
     Page<CardDto> getAllCard(CardCriteria criteria);
 
-    CardDto getByCardNumber(String cardNumber);
+    CardDto getByMobilePhone(String mobilePhone);
 
     void updateCard(Long id, CardDto cardDto);
 

@@ -8,15 +8,12 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class CardDto {
+public class CardDto implements Serializable {
 
     @NotEmpty(message = "Mobile Number can not be a null or empty")
     @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")

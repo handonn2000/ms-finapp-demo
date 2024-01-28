@@ -29,11 +29,13 @@ spring:
           timeout: 10
           force-pull: true
           search-paths:
+            - "configurations/src/main/resources/configs"
             - "configurations/src/main/resources/configs/accounts"
             - "configurations/src/main/resources/configs/cards"
             - "configurations/src/main/resources/configs/loans"
         native:
           search-locations:
+            - "classpath:/configs"
             - "classpath:/configs/accounts"
             - "classpath:/configs/cards"
             - "classpath:/configs/loans"
@@ -55,3 +57,15 @@ management:
     health:
       probes:
         enabled: true
+
+eureka:
+  instance:
+    hostname: localhost
+    statusPageUrlPath: /api/v1/build/info
+    healthCheckUrlPath: /actuator/health
+    healthcheck:
+      enabled: true
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

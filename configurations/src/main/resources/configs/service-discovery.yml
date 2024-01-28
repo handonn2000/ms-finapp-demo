@@ -1,29 +1,30 @@
 spring:
-  application:
-    name: cards
+  application: service-discovery
   cloud:
     bus:
       enabled: true
       refresh:
         enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
-  port: 8089
-
-build:
-  version: 1.0
+  port: 8761
 
 eureka:
   instance:
     hostname: localhost
-    statusPageUrlPath: /api/v1/build/info
-    healthCheckUrlPath: /actuator/health
-    healthcheck:
-      enabled: true
-    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 30
   client:
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: true
 
 management:
   endpoints:
@@ -56,13 +57,3 @@ endpoints:
 
 springdoc:
   show-actuator: true
-
-cards:
-  service-name: finapp-card-service-dev
-  env-name: Developer (dev)
-  developers:
-    - "Han"
-    - "Duy"
-    - "Quan"
-  schemas:
-    card: 1.0-dev

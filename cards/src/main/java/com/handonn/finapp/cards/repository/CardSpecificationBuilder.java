@@ -15,8 +15,17 @@ public class CardSpecificationBuilder {
         specList = new ArrayList<>();
     }
 
-    public CardSpecificationBuilder cardTypeEqual(List<ECardType> cardType) {
-        if (cardType != null) {
+    public CardSpecificationBuilder mobileNumberEqual(String mobileNumber) {
+        if (!mobileNumber.isEmpty()) {
+            Specification<CardEntity> spec = (root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("mobileNumber"), mobileNumber);
+            specList.add(spec);
+        }
+        return this;
+    }
+
+    public CardSpecificationBuilder cardTypeIn(List<ECardType> cardType) {
+        if (!cardType.isEmpty()) {
             Specification<CardEntity> spec = (root, query, criteriaBuilder) ->
                     criteriaBuilder.and(root.get("cardType").in(cardType));
             specList.add(spec);
@@ -24,7 +33,7 @@ public class CardSpecificationBuilder {
         return this;
     }
 
-    public CardSpecificationBuilder byTotalAmountGreaterThanEqual(BigDecimal amount) {
+    public CardSpecificationBuilder totalAmountGreaterThanEqual(BigDecimal amount) {
         if (amount != null) {
             Specification<CardEntity> spec = (root, query, criteriaBuilder) ->
                     criteriaBuilder.greaterThanOrEqualTo(root.get("totalLimit"), amount);
@@ -33,7 +42,7 @@ public class CardSpecificationBuilder {
         return this;
     }
 
-    public CardSpecificationBuilder byTotalAmountLessThanEqual(BigDecimal amount) {
+    public CardSpecificationBuilder totalAmountLessThanEqual(BigDecimal amount) {
         if (amount != null) {
             Specification<CardEntity> spec = (root, query, criteriaBuilder) ->
                     criteriaBuilder.lessThanOrEqualTo(root.get("totalLimit"), amount);
@@ -41,7 +50,6 @@ public class CardSpecificationBuilder {
         }
         return this;
     }
-
 
     public Specification<CardEntity> build() {
         return Specification.allOf(specList);

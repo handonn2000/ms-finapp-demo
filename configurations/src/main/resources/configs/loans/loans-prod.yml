@@ -3,6 +3,7 @@ build:
 
 loans:
   service-name: finapp-loan-service
+  env-name: Production
   developers:
     - "Han"
     - "Duy"

@@ -38,22 +38,23 @@ public class CardServiceImpl implements ICardService {
         Sort sort = Sort.by(criteria.getDirection(), criteria.getSortBy());
         Pageable pageable = PageRequest.of(criteria.getOffset(), criteria.getSize(), sort);
         Specification<CardEntity> specs = new CardSpecificationBuilder()
-                .cardTypeEqual(criteria.getCardTypes())
-                .byTotalAmountGreaterThanEqual(criteria.getMinTotalAmount())
-                .byTotalAmountLessThanEqual(criteria.getMaxTotalAmount())
+                .mobileNumberEqual(criteria.getMobileNumber())
+                .cardTypeIn(criteria.getCardTypes())
+                .totalAmountGreaterThanEqual(criteria.getMinTotalAmount())
+                .totalAmountLessThanEqual(criteria.getMaxTotalAmount())
                 .build();
         Page<CardEntity> entityList = cardRepo.findAll(specs, pageable);
         return entityList.map(CardDto::from);
     }
 
     @Override
-    public CardDto getByCardNumber(String cardNumber) {
-        boolean existed = cardRepo.existsByCardNumber(cardNumber);
+    public CardDto getByMobilePhone(String mobilePhone) {
+        boolean existed = cardRepo.existsByMobileNumber(mobilePhone);
         if (!existed) {
             throw new CardException.BusinessError(ECardErrorCode.CARD_NOT_FOUND);
         }
 
-        CardEntity card = cardRepo.getByCardNumber(cardNumber);
+        CardEntity card = cardRepo.getByMobileNumber(mobilePhone);
         return CardDto.from(card);
     }
 

@@ -18,12 +18,15 @@ services:
           memory: "700m"
     environment:
       SPRING_RABBITMQ_HOST: "rabbit"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-discovery:8761/eureka/
 
   base-application-service:
     extends:
       service: base-config-service
     depends_on:
       config-central:
+        condition: service_healthy
+      service-discovery:
         condition: service_healthy
     environment:
       SPRING_CONFIG_IMPORT: "configserver:http://config-central:8071/application"

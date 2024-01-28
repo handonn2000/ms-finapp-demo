@@ -30,7 +30,7 @@ public class CardController {
     }
 
     @GetMapping
-    public BaseResponse<Page<CardDto>> getCardList(CardCriteria criteria) {
+    public BaseResponse<Page<CardDto>> getCardList(@RequestBody CardCriteria criteria) {
         Page<CardDto> cardDtoPage = cardService.getAllCard(criteria);
         return BaseResponse.<Page<CardDto>>builder()
                 .statusCode(HttpStatus.OK)
@@ -40,9 +40,21 @@ public class CardController {
     }
 
     @GetMapping("/{cardNumber}")
-    public BaseResponse<CardDto> getCardDetail(@PathVariable
+    public BaseResponse<CardDto> getCardDetail(@PathVariable("cardNumber")
                                                @Pattern(regexp = "(^$|[0-9]{12})", message = "CardNumber must be 12 digits") String cardNumber) {
-        CardDto result = cardService.getByCardNumber(cardNumber);
+        CardDto result = cardService.getByMobilePhone(cardNumber);
+
+        return BaseResponse.<CardDto>builder()
+                .statusCode(HttpStatus.OK)
+                .message("Success")
+                .data(result)
+                .build();
+    }
+
+    @GetMapping("/details")
+    public BaseResponse<CardDto> getCardByPhone(@RequestParam String mobilePhone) {
+        CardDto result = cardService.getByMobilePhone(mobilePhone);
+
         return BaseResponse.<CardDto>builder()
                 .statusCode(HttpStatus.OK)
                 .message("Success")
