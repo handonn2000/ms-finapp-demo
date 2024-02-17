@@ -11,12 +11,11 @@
 	</parent>
 
 	<groupId>com.handonn.finapp</groupId>
-	<artifactId>service-discovery</artifactId>
-	<packaging>jar</packaging>
+	<artifactId>gateway-server</artifactId>
 
-	<name>service-discovery</name>
+	<name>gateway-server</name>
 	<version>1.0.0</version>
-	<description>Service Discovery for Microservices FinApp</description>
+	<description>Gateway Server Finapp Microservices</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -25,22 +24,25 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 
 		<dependency>
@@ -64,6 +66,11 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
 			<!-- Google JIB (for containerization) -->
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>

@@ -66,3 +66,10 @@ loans:
     - "Quan"
   schemas:
     loan: 1.0-dev
+
+logging:
+  level:
+    com:
+      handonn:
+        finapp:
+          loans: DEBUG

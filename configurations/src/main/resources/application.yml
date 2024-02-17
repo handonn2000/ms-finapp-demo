@@ -61,7 +61,6 @@ management:
 eureka:
   instance:
     hostname: localhost
-    statusPageUrlPath: /api/v1/build/info
     healthCheckUrlPath: /actuator/health
     healthcheck:
       enabled: true

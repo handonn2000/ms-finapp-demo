@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -21,8 +21,8 @@
     <properties>
         <java.version>17</java.version>
         <common.version>1.0.0</common.version>
-        <springdoc.version>2.2.0</springdoc.version>
-        <spring-cloud.version>2022.0.4</spring-cloud.version>
+        <springdoc.version>2.3.0</springdoc.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
         <postgres.version>42.7.1</postgres.version>
     </properties>
 
@@ -98,7 +98,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.1.5</version>
+                <version>3.2.2</version>
                 <configuration>
                     <excludes>
                         <exclude>

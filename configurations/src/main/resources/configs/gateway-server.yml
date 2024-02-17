@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+
+server:
+  port: 8072
+
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+
+springdoc:
+  show-actuator: true
+
+info:
+  app:
+    name: "Finapp Gateway Server"
+    description: "This is a gateway using for our microservices"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      handonn:
+        finapp:
+          gatewayserver: DEBUG
