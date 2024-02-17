@@ -68,3 +68,11 @@ accounts:
     account: 1.0-dev
     customer: 1.0-dev
 
+logging:
+  level:
+    com:
+      handonn:
+        finapp:
+          accounts: DEBUG
+
+

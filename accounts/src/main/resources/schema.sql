@@ -19,3 +19,12 @@ CREATE TABLE IF NOT EXISTS accounts (
   updated_at date DEFAULT NULL,
   updated_by varchar(20) DEFAULT NULL
 );
+
+INSERT INTO CUSTOMERS (name, email, mobile_number, created_at, created_by)
+VALUES ('Han', 'handonn@example.com', '0778098295', CURRENT_TIMESTAMP, 'ADMIN');
+
+INSERT INTO ACCOUNTS (customer_id, account_number, account_type, branch_address, created_at, created_by)
+VALUES (1, 'ACCT123', 'ADMIN', '123 Main St', CURRENT_TIMESTAMP, 'ADMIN');
+
+
+

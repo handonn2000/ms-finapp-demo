@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS cards (
 INSERT INTO CARDS (mobile_number, card_number, card_type, total_limit, amount_used, available_amount, created_at, created_by)
 VALUES
 ('8498074646', '898457138919', 'MASTERCARD', 55, 33, 22, CURRENT_TIMESTAMP, 'YourCreatedByValue'),
-('8294054265', '315344933785', 'VISA', 66, 55, 11, CURRENT_TIMESTAMP, 'YourCreatedByValue'),
+('0778098295', '077809829555', 'VISA', 66, 55, 11, CURRENT_TIMESTAMP, 'YourCreatedByValue'),
 ('3184829562', '159327494442', 'JCB', 53, 13, 40, CURRENT_TIMESTAMP, 'YourCreatedByValue'),
 ('3883884571', '557897732690', 'AMERICAN_EXPRESS', 77, 56, 21, CURRENT_TIMESTAMP, 'YourCreatedByValue'),
 ('3883880571', '557897736690', 'DINERS_CLUB', 90, 11, 9, CURRENT_TIMESTAMP, 'YourCreatedByValue'),
