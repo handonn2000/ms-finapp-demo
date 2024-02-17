@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+
+  gateway-server:
+    image: "finapp/gateway-server:1.0.0"
+    container_name: "finapp-gateway-server"
+    ports:
+      - "8072:8072"
+    extends:
+      file: common.yml
+      service: base-config-service
+    healthcheck:
+      test: "curl --fail --silent localhost:8072/actuator/health/readiness | grep UP || exit 1"
+    environment:
+      SPRING_APPLICATION_NAME: gateway-server
+      SPRING_CONFIG_IMPORT: "configserver:http://config-central:8071/application"
+
+networks:
+  finapp:
+    driver: bridge
