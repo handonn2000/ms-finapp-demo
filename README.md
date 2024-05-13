@@ -11,7 +11,7 @@ This project is implemented to practice the concept of microservice, cloud-nativ
 - [x] Implement card services
 - [x] Set up Configuration Central
 - [x] Set up OpenFeign for service communication
-- [ ] Set up Spring Cloud GateWay (routing, tracing & logging)
+- [x] Set up Spring Cloud GateWay (routing, tracing & logging)
 - [ ] Improve application resilience (circuit breaker, retry, ratelimiter, ...)
 - [ ] Set up monitoring tools (Grafana, Loki, Prometheus)
 - [ ] Set up keycloak security for applications
